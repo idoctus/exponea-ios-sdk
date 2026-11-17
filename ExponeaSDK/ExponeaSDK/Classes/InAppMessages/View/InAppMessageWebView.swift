@@ -139,7 +139,8 @@ final class InAppMessageWebView: UIView, InAppMessageView {
         let configuration = HtmlNormalizer.createWebViewConfiguration()
         configuration.preferences = preferences
         configuration.allowsAirPlayForMediaPlayback = false
-        configuration.allowsInlineMediaPlayback = false
+        configuration.allowsInlineMediaPlayback = true
+        configuration.mediaTypesRequiringUserActionForPlayback = []
         configuration.allowsPictureInPictureMediaPlayback = false
         if #available(iOS 14.0, *) {
             let webPagePreferences = WKWebpagePreferences()
