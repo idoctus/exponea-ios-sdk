@@ -130,7 +130,12 @@ final class InAppMessageWebView: UIView, InAppMessageView {
     private func buildAntiXssSetup() -> WKWebViewConfiguration {
         let preferences = WKPreferences()
         preferences.javaScriptCanOpenWindowsAutomatically = false
-        preferences.javaScriptEnabled = false
+        if #available(iOS 14.0, *) {
+            // allowsContentJavaScript below blocks the message's scripts; javaScriptEnabled = false would also
+            // force WebKit's media controls onto every <video>, frozen at 00:00 and dimming the picture.
+        } else {
+            preferences.javaScriptEnabled = false
+        }
         #if compiler(>=5.6)
         if #available(iOS 15.4, *) {
             preferences.isElementFullscreenEnabled = false
