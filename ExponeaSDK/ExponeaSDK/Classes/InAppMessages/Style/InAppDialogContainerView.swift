@@ -116,10 +116,14 @@ public final class InAppDialogContainerView: UIViewController, InAppMessageView 
         })
     }
 
-    func present(in viewController: UIViewController, window: UIWindow?) {
-        viewController.addChild(self)
-        viewController.view.addSubview(view)
-        didMove(toParent: self)
+    func present(in viewController: UIViewController, window: UIWindow?) throws {
+        // Attach to the window like the slide-in and HTML views: hosts such as Flutter keep
+        // re-inserting their platform views on top of the top view controller's view.
+        guard let window = window ?? viewController.view.window else {
+            throw InAppMessagePresenter.InAppMessagePresenterError.unableToPresentView
+        }
+        view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        window.addSubview(view)
     }
 
     func dismiss(isUserInteraction: Bool, cancelButton: InAppMessagePayloadButton?) {
