@@ -46,6 +46,15 @@ final class InAppContentBlocksManager: NSObject {
             "action": {
                 "type": "ignore-previous-rules"
             }
+        },
+        {
+            "trigger": {
+                "url-filter": "^https://",
+                "resource-type": ["media"]
+            },
+            "action": {
+                "type": "ignore-previous-rules"
+            }
         }]
     """
     var contentRuleList: WKContentRuleList?
